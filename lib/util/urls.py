@@ -1,0 +1,10 @@
+class SongService {
+
+
+
+ getGlobalSearch(query){
+
+    
+
+ }
+}
