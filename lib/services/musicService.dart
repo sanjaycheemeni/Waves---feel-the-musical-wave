@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:waves/model/player.dart';
 import 'package:waves/model/song.dart';
+import 'package:waves/model/trending.dart';
 
 import '../model/search_result.dart';
 import '../util/constants.dart';
@@ -102,5 +103,27 @@ class MusicService {
       throw Exception('Failed to send request:${error}');
     }
     return [];
+  }
+
+  Future<List<Trending>> getTrendingList() async {
+    // Make the HTTP request
+    final url = Uri.parse(TRENDING);
+    final response = await http.get(url);
+    // Check if the request was successful (status code 200)
+    if (response.statusCode == 200) {
+      // Parse the JSON response
+      final Map<String, dynamic> data = json.decode(response.body);
+      // Extract the trending list from the response
+      final List<dynamic> trendingData = data['trending'];
+
+      // Convert the trending data to a list of Trending objects
+      List<Trending> trendingList =
+          trendingData.map((item) => Trending.fromJson(item)).toList();
+
+      return trendingList;
+    } else {
+      // If the request was not successful, throw an error
+      throw Exception('Failed to load trending list');
+    }
   }
 }

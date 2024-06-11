@@ -8,8 +8,10 @@ import 'package:waves/provider/player_provider.dart';
 import 'package:waves/screens/music_player_page.dart';
 import 'package:waves/widgets/global_search_tile.dart';
 import 'package:waves/widgets/music_progress_bar.dart';
+import 'package:waves/widgets/trending_card.dart';
 
 import '../provider/search_provider.dart';
+import '../widgets/gradient_text.dart';
 import '../widgets/search_box.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,50 +40,56 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        'Waves',
-                        style: TextStyle(
-                            color: Color(0xFF313292),
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold),
-                      ),
+                    SizedBox(
+                      height: 30,
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        'Feel the music wave!',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 101, 102, 160),
-                          fontSize: 12,
-                        ),
+                      child: GradientText(
+                        'Good Afternoon!',
+                        style: const TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.w500),
+                        gradient: LinearGradient(colors: [
+                          Colors.blue.shade400,
+                          Colors.blue.shade900,
+                        ]),
                       ),
                     ),
                     SearchBox(
-                      hint: 'Search song,artist,album..',
-                      onTextChanged: (text) {
-                        print(text);
-                        searchProvider.fetchSongsByQuery(text);
-                      },
-                      ScreenDimension: MediaQuery.of(context).size,
+                        onTextChanged: (value) {},
+                        ScreenDimension: ScreenDimension,
+                        hint: 'Search..'),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, top: 20),
+                      child: Text('Trendings'),
                     ),
                     SizedBox(
-                      height: 20,
-                    ),
-                    Consumer<SearchProvider>(
-                        builder: (buildcontext, state, context) {
-                      return Expanded(
-                        child: ListView.builder(
-                          itemBuilder: (buildContext, index) =>
-                              GlobalSearchItem(
-                            data: state.songList[index],
-                            ScreenDimension: ScreenDimension,
+                      height: 200,
+                      child: Expanded(
+                          child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          TrendingCard(
+                            desc: "desc...",
+                            singtitle: 'Songname',
+                            image:
+                                'https://c.saavncdn.com/450/Chot-Dil-Pe-Lagi-From-Ishq-Vishk-Rebound-Hindi-2024-20240603121620-150x150.jpg?bch=477196',
                           ),
-                          itemCount: state.songList.length,
-                        ),
-                      );
-                    })
+                          TrendingCard(
+                            desc: "desc...",
+                            singtitle: 'Songname',
+                            image:
+                                'https://c.saavncdn.com/450/Chot-Dil-Pe-Lagi-From-Ishq-Vishk-Rebound-Hindi-2024-20240603121620-150x150.jpg?bch=477196',
+                          ),
+                          TrendingCard(
+                            desc: "desc...",
+                            singtitle: 'Songname',
+                            image:
+                                'https://c.saavncdn.com/450/Chot-Dil-Pe-Lagi-From-Ishq-Vishk-Rebound-Hindi-2024-20240603121620-150x150.jpg?bch=477196',
+                          )
+                        ],
+                      )),
+                    )
                   ],
                 ),
               ),
