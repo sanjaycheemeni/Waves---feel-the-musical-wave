@@ -5,8 +5,10 @@ class TrendingCard extends StatelessWidget {
       {super.key,
       required this.image,
       required this.singtitle,
-      required this.desc});
-  final image, singtitle, desc;
+      required this.desc,
+      required this.index,
+      required this.type});
+  final image, singtitle, desc, index, type;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class TrendingCard extends StatelessWidget {
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.transparent,
-                  Color.fromARGB(255, 17, 17, 17).withOpacity(0.7),
+                  // Color.fromARGB(255, 17, 17, 17).withOpacity(0.7),
                   Color.fromARGB(255, 17, 17, 17).withOpacity(0.7)
                 ],
               ),
@@ -61,7 +63,7 @@ class TrendingCard extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 5, vertical: 1),
                           child: Text(
-                            'Song',
+                            type.toString(),
                             style: TextStyle(
                                 color: Colors.blue,
                                 fontSize: 12,
@@ -78,7 +80,7 @@ class TrendingCard extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           child: Text(
-                            '#1',
+                            '#' + (index + 1).toString(),
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -90,7 +92,8 @@ class TrendingCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        singtitle,
+                        singtitle.toString(),
+                        maxLines: 1,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -98,13 +101,15 @@ class TrendingCard extends StatelessWidget {
                         ),
                       ),
                       // SizedBox(height: 8),
-                      Text(
-                        desc,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
+                      if (desc != '')
+                        Text(
+                          desc.toString(),
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
                     ],
                   )
                 ],

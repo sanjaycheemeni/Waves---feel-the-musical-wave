@@ -19,7 +19,7 @@ class Trending {
     return Trending(
       id: json['id'],
       name: json['title'],
-      desc: json['desc'],
+      desc: json['subtitle'],
       image: json['image'],
       type: json['type'],
       language: json['language'],

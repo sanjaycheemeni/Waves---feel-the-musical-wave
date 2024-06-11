@@ -108,21 +108,19 @@ class MusicService {
   Future<List<Trending>> getTrendingList() async {
     // Make the HTTP request
     final url = Uri.parse(TRENDING);
-    final response = await http.get(url);
-    // Check if the request was successful (status code 200)
+    final response = await http.get(url, headers: {'Cookie': 'L=malayalam'});
     if (response.statusCode == 200) {
-      // Parse the JSON response
       final Map<String, dynamic> data = json.decode(response.body);
-      // Extract the trending list from the response
-      final List<dynamic> trendingData = data['trending'];
+      // print(data);
+      final List<dynamic> trendingData = data['new_trending'];
 
-      // Convert the trending data to a list of Trending objects
       List<Trending> trendingList =
           trendingData.map((item) => Trending.fromJson(item)).toList();
+      print(trendingList[0].name.toString() + '%%');
 
       return trendingList;
+      // return [];
     } else {
-      // If the request was not successful, throw an error
       throw Exception('Failed to load trending list');
     }
   }

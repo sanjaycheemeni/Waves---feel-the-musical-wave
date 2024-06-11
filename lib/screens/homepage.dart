@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:waves/provider/home_provider.dart';
 import 'package:waves/provider/player_provider.dart';
 import 'package:waves/screens/music_player_page.dart';
 import 'package:waves/widgets/global_search_tile.dart';
@@ -63,33 +64,26 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.only(left: 10, top: 20),
                       child: Text('Trendings'),
                     ),
-                    SizedBox(
-                      height: 200,
-                      child: Expanded(
-                          child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          TrendingCard(
-                            desc: "desc...",
-                            singtitle: 'Songname',
-                            image:
-                                'https://c.saavncdn.com/450/Chot-Dil-Pe-Lagi-From-Ishq-Vishk-Rebound-Hindi-2024-20240603121620-150x150.jpg?bch=477196',
-                          ),
-                          TrendingCard(
-                            desc: "desc...",
-                            singtitle: 'Songname',
-                            image:
-                                'https://c.saavncdn.com/450/Chot-Dil-Pe-Lagi-From-Ishq-Vishk-Rebound-Hindi-2024-20240603121620-150x150.jpg?bch=477196',
-                          ),
-                          TrendingCard(
-                            desc: "desc...",
-                            singtitle: 'Songname',
-                            image:
-                                'https://c.saavncdn.com/450/Chot-Dil-Pe-Lagi-From-Ishq-Vishk-Rebound-Hindi-2024-20240603121620-150x150.jpg?bch=477196',
-                          )
-                        ],
-                      )),
-                    )
+                    Consumer<HomeProvider>(builder: (context, state, child) {
+                      return SizedBox(
+                        height: 200,
+                        child: (state.TopTrends.length == 0)
+                            ? Text('Loading...')
+                            : Expanded(
+                                child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (bc, index) {
+                                  return TrendingCard(
+                                      image: state.TopTrends[index].image,
+                                      singtitle: state.TopTrends[index].name,
+                                      desc: state.TopTrends[index].desc,
+                                      index: index,
+                                      type: state.TopTrends[index].type);
+                                },
+                                itemCount: state.TopTrends.length,
+                              )),
+                      );
+                    })
                   ],
                 ),
               ),
