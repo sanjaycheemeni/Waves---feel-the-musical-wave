@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:waves/provider/home_provider.dart';
 import 'package:waves/provider/player_provider.dart';
 import 'package:waves/screens/music_player_page.dart';
@@ -47,12 +46,27 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: EdgeInsets.only(left: 10.0),
                       child: GradientText(
-                        'Good Afternoon!',
+                        'Hello, Sanju',
                         style: const TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.w500),
+                            fontSize: 35, fontWeight: FontWeight.w300),
                         gradient: LinearGradient(colors: [
-                          Colors.blue.shade400,
-                          Colors.blue.shade900,
+                          Colors.blue,
+                          Color.fromARGB(255, 74, 85, 148),
+                          Color.fromARGB(255, 134, 95, 240),
+                          Color.fromARGB(255, 137, 105, 226),
+                          // Color.fromARGB(255, 207, 105, 139)
+                        ]),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: GradientText(
+                        'Feel some music!',
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                        gradient: LinearGradient(colors: [
+                          Color.fromARGB(255, 119, 119, 119),
+                          Color.fromARGB(255, 119, 119, 119),
                         ]),
                       ),
                     ),
@@ -61,16 +75,42 @@ class _HomePageState extends State<HomePage> {
                         ScreenDimension: ScreenDimension,
                         hint: 'Search..'),
                     Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 20),
-                      child: Text('Trendings'),
+                      padding:
+                          const EdgeInsets.only(left: 10, top: 20, bottom: 3),
+                      child: Text(
+                        'Trendings',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: const Color.fromARGB(255, 23, 90, 145)),
+                      ),
                     ),
                     Consumer<HomeProvider>(builder: (context, state, child) {
                       return SizedBox(
-                        height: 200,
+                        height: 150,
                         child: (state.TopTrends.length == 0)
-                            ? Text('Loading...')
-                            : Expanded(
+                            ? Shimmer.fromColors(
+                                baseColor: Color.fromARGB(255, 233, 233, 233)!,
+                                highlightColor:
+                                    Color.fromARGB(255, 231, 231, 231)!,
                                 child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (bc, index) {
+                                    return Container(
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 8),
+                                      width: 110.0,
+                                      height: 130,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    );
+                                  },
+                                  itemCount: 5,
+                                ),
+                              )
+                            : ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (bc, index) {
                                   return TrendingCard(
@@ -81,9 +121,19 @@ class _HomePageState extends State<HomePage> {
                                       type: state.TopTrends[index].type);
                                 },
                                 itemCount: state.TopTrends.length,
-                              )),
+                              ),
                       );
-                    })
+                    }),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, top: 20),
+                      child: Text(
+                        'Suggestions',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: const Color.fromARGB(255, 23, 90, 145)),
+                      ),
+                    ),
                   ],
                 ),
               ),

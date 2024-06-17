@@ -4,8 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:waves/provider/home_provider.dart';
 import 'package:waves/provider/search_provider.dart';
 import 'package:waves/screens/homepage.dart';
-import 'package:waves/screens/music_player_page.dart';
-import 'package:waves/screens/searchpage.dart';
+
 import 'package:waves/services/musicService.dart';
 
 import 'provider/player_provider.dart';

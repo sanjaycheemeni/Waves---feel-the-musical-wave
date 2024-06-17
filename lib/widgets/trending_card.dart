@@ -14,24 +14,28 @@ class TrendingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // elevation: 4,
-      margin: EdgeInsets.all(8),
+      margin: EdgeInsets.symmetric(horizontal: 8),
       child: Stack(
         children: [
           ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: SizedBox(
-                  height: 150,
-                  width: 250,
-                  child: Image.network(
-                    image,
-                    fit: BoxFit.cover,
-                  ))),
+            borderRadius: BorderRadius.circular(10),
+            child: SizedBox(
+              height: 150,
+              width: 110,
+              child: FadeInImage.assetNetwork(
+                placeholder: './assets/images/def_alb.jpg',
+                image: image ?? '',
+                placeholderFit: BoxFit.contain,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
           // Background image
 
           // Gradient shade
           Container(
             height: 150,
-            width: 250,
+            width: 110,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               gradient: LinearGradient(
@@ -39,13 +43,13 @@ class TrendingCard extends StatelessWidget {
                 end: Alignment.bottomCenter,
                 colors: [
                   Colors.transparent,
-                  // Color.fromARGB(255, 17, 17, 17).withOpacity(0.7),
-                  Color.fromARGB(255, 17, 17, 17).withOpacity(0.7)
+                  Color.fromARGB(255, 17, 17, 17).withOpacity(0.7),
+                  Color.fromARGB(255, 17, 17, 17).withOpacity(0.7),
                 ],
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,20 +92,21 @@ class TrendingCard extends StatelessWidget {
                     ],
                   ),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         singtitle.toString(),
-                        maxLines: 1,
+                        maxLines: 2,
+                        textAlign: TextAlign.start,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 24,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       // SizedBox(height: 8),
-                      if (desc != '')
+                      if (desc != '' && false)
                         Text(
                           desc.toString(),
                           maxLines: 1,
